@@ -2,18 +2,22 @@ buildscript {
     repositories {
         jcenter()
         maven { url = "https://files.minecraftforge.net/maven" }
+        mavenCentral()
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
     }
 }
+
+apply plugin: 'scala'
+
 apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
 
-version = "1.0"
-group = "com.yourname.modid" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "modid"
+version = "0.1"
+group = "com.maybe-william.leveledloot" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "leveledloot"
 
 sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 compileJava {
@@ -23,7 +27,7 @@ compileJava {
 minecraft {
     version = "1.12.2-14.23.5.2847"
     runDir = "run"
-    
+
     // the mappings can be changed at any time, and must be in the following format.
     // snapshot_YYYYMMDD   snapshot are built nightly.
     // stable_#            stables are built at the discretion of the MCP team.
@@ -54,7 +58,16 @@ dependencies {
     // for more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
-
+    compile 'org.scala-lang:scala-library:2.11.12'
+    compile 'org.scala-lang:scala-actors-migration_2.11:1.1.0'
+    compile 'org.scala-lang:scala-compiler:2.11.1'
+    compile 'org.scala-lang.plugins:scala-continuations-library_2.11:1.0.2'
+    compile 'org.scala-lang.plugins:scala-continuations-plugin_2.11.1:1.0.2'
+    compile 'org.scala-lang:scala-library:2.11.1'
+    compile 'org.scala-lang.modules:scala-parser-combinators_2.11:1.0.1'
+    compile 'org.scala-lang:scala-reflect:2.11.1'
+    compile 'org.scala-lang.modules:scala-swing_2.11:1.0.1'
+    compile 'org.scala-lang.modules:scala-xml_2.11:1.0.2'
 }
 
 processResources {
@@ -73,5 +86,17 @@ processResources {
     // copy everything else except the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
+    }
+}
+
+jar {
+    manifest {
+        attributes(["Specification-Title": "LeveledLoot",
+                    "Specification-Vendor": "maybe-william",
+                    "Specification-Version": "0.1", // We are version 1 of ourselves
+                    "Implementation-Title": project.name,
+                    "Implementation-Version": "${version}",
+                    "Implementation-Vendor" :"maybe-william",
+                    "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")],)
     }
 }

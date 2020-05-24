@@ -1,14 +1,14 @@
 [
 {
-  "modid": "examplemod",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
+  "modid": "leveledloot",
+  "name": "Leveled Loot",
+  "description": "Loot gets better as you level up",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
-  "authorList": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
+  "authorList": ["maybe-william"],
+  "credits": "The Forge and FML guys, and maybe-william",
   "logoFile": "",
   "screenshots": [],
   "dependencies": []
