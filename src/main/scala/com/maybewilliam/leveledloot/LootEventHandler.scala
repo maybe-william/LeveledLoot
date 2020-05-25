@@ -4,6 +4,7 @@ This file is for the changing of loot through event handlers
 package com.maybewilliam.leveledloot
 
 import java.util.List
+import java.lang.Math
 import java.util.Random
 import net.minecraft.init.Blocks
 import net.minecraft.init.Items
@@ -20,6 +21,7 @@ import org.apache.logging.log4j.Logger
  */
 class LootEventHandler
 {
+  val rand = new Random
 
   /** Returns a drop stack if drop is an ore, otherwise null
    *
@@ -28,6 +30,7 @@ class LootEventHandler
    *  @returns The stack to return or null
    */
   def getDropStack(event: HarvestDropsEvent): ItemStack = {
+
     val num = event.getDrops.size
     if(num == 0) {
       return null
@@ -70,15 +73,53 @@ class LootEventHandler
    *  @param list The list of drops
    */
   def modifyHarvestDrops(level: Int, fortuneLevel: Int, dropStack: ItemStack, list: List[ItemStack]): Unit = {
-    val prob = 2
-    val times = 3
-    if (prob >= 1) {
-      if (list.size >= 1) {
-        list.clear()
-        var i = 0
-        for (i <- 0 to times) {
-          list.add(dropStack.copy())
-        }
+
+    //Tier, Prob, and Boost referenced against each other should give roughly 2x the items every 30 levels
+    val tier = Math.floor(level/30) + 2
+    val prob = level % 30
+    val boost = Math.round(Math.pow(2, (tier-1))).toInt
+
+    //Get base amount of itemStacks to drop
+    var count = (boost/2).toInt //give a guaranteed base amount of drops for each 30 levels
+    var i = count
+    for (i <- 0 until boost) {
+      if (rand.nextInt(31) <= prob) {
+        count = count + 1
+      }
+    }
+
+    //Fortune enchantment calculation applied to amount
+    if (fortuneLevel == 1) {
+      if (rand.nextInt(101) <= 33) {
+        count = count * 2
+      }
+    }
+    if (fortuneLevel == 2) {
+      if (rand.nextInt(101) <= 25) {
+        count = count * 2
+      }
+      if (rand.nextInt(101) <= 25) {
+        count = count * 3
+      }
+    }
+    if (fortuneLevel == 3) {
+      if (rand.nextInt(101) <= 20) {
+        count = count * 2
+      }
+      if (rand.nextInt(101) <= 20) {
+        count = count * 3
+      }
+      if (rand.nextInt(101) <= 20) {
+        count = count * 4
+      }
+    }
+
+    //If only 1 or 0 drops, don't modify original drop list at all
+    if (count > 1) {
+      list.clear()
+      var j = 0
+      for (j <- 0 until count) {
+        list.add(dropStack.copy())
       }
     }
   }
@@ -93,7 +134,7 @@ class LootEventHandler
     if (harvester != null && !event.isSilkTouching) {
       val dropStack = getDropStack(event);
       if (dropStack != null) {
-        Debug.chat(harvester.experienceLevel.toString, harvester)
+        //Debug.chat(harvester.experienceLevel.toString, harvester)
         val fortune = event.getFortuneLevel
         val list = event.getDrops
         val level = harvester.experienceLevel
