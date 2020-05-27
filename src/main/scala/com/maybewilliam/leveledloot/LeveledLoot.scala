@@ -25,7 +25,8 @@ object LeveledLoot
   def preInit(event: FMLPreInitializationEvent): Unit = {
     //this.logger = event.getModLog()
     //MinecraftForge.EVENT_BUS.register((LootEventHandler).getClass())
-    MinecraftForge.EVENT_BUS.register(new LootEventHandler)
+    MinecraftForge.EVENT_BUS.register(new BlockLootEventHandler)
+    MinecraftForge.EVENT_BUS.register(new EntityLootEventHandler)
   }
 
   /** Does init setup

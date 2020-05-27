@@ -28,6 +28,7 @@ sourceSets {
     main {
         scala {
             srcDirs = ['src/main/scala', 'src/main/java']
+
         }
         java {
             srcDirs = []
@@ -44,7 +45,7 @@ minecraft {
     // stable_#            stables are built at the discretion of the MCP team.
     // Use non-default mappings at your own risk. they may not always work.
     // simply re-run your setup task after changing the mappings to update your workspace.
-    mappings = "snapshot_20180814"
+    mappings = "snapshot_20171003" //"snapshot_20180814"
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 }
 
