@@ -75,6 +75,8 @@ class BlockLootEventHandler
   /** Changes harvest drops if block is an ore
    *
    *  @param level The block-breaker's level
+   *  @param fortuneLevel The level of fortune enchantment used
+   *  @param dropStack The ItemStack to drop
    *  @param list The list of drops
    */
   def modifyHarvestDrops(level: Int, fortuneLevel: Int, dropStack: ItemStack, list: List[ItemStack]): Unit = {
@@ -152,12 +154,21 @@ class BlockLootEventHandler
 
 
 
-
+/** An event handler for entity loot drops
+ *
+ *  @constructor Create a new handler
+ */
 class EntityLootEventHandler
 {
   val rand = new Random
   var livingEvent: LivingDropsEvent = null
 
+  /** Copies an EntityItem in the same world and location
+   *
+   *  @param items the EntityItem to make a copy of
+   *
+   *  @returns a new duplicate of the EntityItem
+   */
   def copyItems(items: EntityItem): EntityItem = {
     val item = items.getItem().copy()
     val world = livingEvent.getEntityLiving.getEntityWorld
@@ -167,7 +178,7 @@ class EntityLootEventHandler
     return new EntityItem(world, x, y, z, item)
   }
 
-  /** Returns a drop stack if drop is an ore, otherwise null
+  /** Returns a drop stack if drop exists and isn't a player, otherwise null
    *
    *  @param event The HarvestDropsEvent
    *
@@ -185,9 +196,11 @@ class EntityLootEventHandler
     return stack
   }
 
-  /** Changes harvest drops if block is an ore
+  /** Changes entity drops
    *
    *  @param level The block-breaker's level
+   *  @param lootingLevel The level of looting enchantment used
+   *  @param dropStack The EntityItem to drop
    *  @param list The list of drops
    */
   def modifyLivingDrops(level: Int, lootingLevel: Int, dropStack: EntityItem, list: List[EntityItem]): Unit = {
@@ -242,7 +255,7 @@ class EntityLootEventHandler
     }
   }
 
-  /** Changes harvest drops from broken blocks
+  /** Changes drops from killed entities
    *
    *  @param event The harvest drop event
    */
