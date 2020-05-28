@@ -1,6 +1,6 @@
 # Leveled Loot
 
-A minecraft mod that increases the loot you get from ore blocks as you gain levels.
+A minecraft mod that increases the loot you get from ore blocks and entities as you gain levels.
 
 ## Getting Started
 
