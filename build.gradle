@@ -13,7 +13,7 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
 
-version = "1.0"
+version = "1.1"
 group = "com.maybewilliam.leveledloot" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "leveledloot"
 
@@ -37,7 +37,7 @@ sourceSets {
 }
 
 minecraft {
-    version = "1.12.2-14.23.5.2847"
+    version = "1.12.2-14.23.5.2847" //This is the version of forge to compile mod with. Change the version number and then try ./gradlew build if you want to build for a different version of forge.
     runDir = "run"
 
     // the mappings can be changed at any time, and must be in the following format.

@@ -27,6 +27,7 @@ object LeveledLoot
     //MinecraftForge.EVENT_BUS.register((LootEventHandler).getClass())
     MinecraftForge.EVENT_BUS.register(new BlockLootEventHandler)
     MinecraftForge.EVENT_BUS.register(new EntityLootEventHandler)
+    MinecraftForge.EVENT_BUS.register(new XPEventHandler)
   }
 
   /** Does init setup

@@ -8,6 +8,6 @@ object References
 {
   final val MODID = "leveledloot"
   final val NAME = "LeveledLoot"
-  final val VERSION = "1.0"
+  final val VERSION = "1.1"
   final val ACCEPTED = "[1.12.2]"
 }
